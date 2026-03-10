@@ -52,6 +52,23 @@ public class JeuDeCartes {
 		public Carte getCarte() {
 			return carte;
 		}
+	}
+	
+	public Carte[] donnerCartes() {
+		int nbCartes = 0;
 		
+		for(Configuration cartes : typesDeCartes) {
+			nbCartes += cartes.getNbExemplaires();
+		}
+		
+		Carte[] cartes = new Carte[nbCartes];
+		
+		for(int iType = 0, iCartes = 0; iType < typesDeCartes.length; iType++) {
+			for(int nbExemplaire = 0; nbExemplaire < typesDeCartes[iType].getNbExemplaires(); nbExemplaire++, iCartes++) {
+				cartes[iCartes] = typesDeCartes[iType].getCarte();
+			}
+		}
+		
+		return cartes;
 	}
 }
