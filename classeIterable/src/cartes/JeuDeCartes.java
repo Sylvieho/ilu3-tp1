@@ -4,6 +4,7 @@ public class JeuDeCartes {
 	private Configuration[] typesDeCartes;
 	
 	public JeuDeCartes() {
+		typesDeCartes = new Configuration[19];
 		typesDeCartes[0] = new Configuration(new Borne(25), 10);
 		typesDeCartes[1] = new Configuration(new Borne(50), 10);
 		typesDeCartes[2] = new Configuration(new Borne(75), 10);
@@ -26,7 +27,7 @@ public class JeuDeCartes {
 	}
 	
 	public String affichageJeuDeCartes() {
-		StringBuilder affichage = new StringBuilder("JEU : \n");
+		StringBuilder affichage = new StringBuilder("");
 		for(Configuration carte : typesDeCartes) {
 			affichage.append(carte.getNbExemplaires());
 			affichage.append(" ");
