@@ -43,7 +43,7 @@ public class TestSabot {
 		System.out.println("Je pioche " + cartePioche);
 		for (Iterator<Carte> iterator = sabot.iterator(); iterator.hasNext();) {
 			Carte carte = iterator.next();
-			System.out.println("Je pioche " + carte);
+			System.out.println("Je p ioche " + carte);
 			iterator.remove();
 			Carte cartePiochee = sabot.piocher();
 			sabot.ajouterCarte(new Botte(cartes.Type.ACCIDENT));
