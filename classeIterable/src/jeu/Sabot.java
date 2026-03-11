@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 
 import cartes.Carte;
 
-public class Sabot implements Iterable <Carte> {
+public class Sabot implements Iterable<Carte> {
 	private Carte[] cartes;
 	private int nbCartes;
 	
@@ -57,7 +57,7 @@ public class Sabot implements Iterable <Carte> {
 				indiceIterateur ++;
 				nextEffectue = true;
 				return carte;
-			}else throw new NoSuchElementException());
+			}else throw new NoSuchElementException();
 
 		}
 		
@@ -78,5 +78,10 @@ public class Sabot implements Iterable <Carte> {
 		private void verificationConcurrence() {
 			if(nbOperations != indiceConcurrence) throw new ConcurrentModificationException();
 		}
+	}
+
+	@Override
+	public Iterator<Carte> iterator() {
+		return new Iterateur();
 	}
 }
