@@ -39,4 +39,12 @@ public class Joueur {
 		donner(premiereCarte);
 		return premiereCarte;
 	}
+	
+	public int donnerKmParcourus() {
+		return zoneDeJeu.donnerKmParcourus();
+	}
+	
+	public void deposer(Carte c) {
+		zoneDeJeu.deposer(c);
+	}
 }

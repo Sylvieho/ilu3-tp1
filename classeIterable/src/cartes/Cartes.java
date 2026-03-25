@@ -1,9 +1,4 @@
-package jeu;
-
-import cartes.Attaque;
-import cartes.Botte;
-import cartes.Parade;
-import cartes.Type;
+package cartes;
 
 public interface Cartes {
 	public final static Botte PRIORITAIRE = new Botte(Type.FEU);
