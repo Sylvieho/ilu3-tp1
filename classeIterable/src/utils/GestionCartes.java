@@ -60,25 +60,17 @@ public class GestionCartes {
 	}
 	
 	public static <T> boolean verifierRassemblement (List<T> liste) {
-		int i = 0;
 		for(ListIterator<T> iterateur = liste.listIterator(); iterateur.hasNext();) {
 			T element = iterateur.next();
 			
-			ListIterator<T> itOccurrence = liste.listIterator(i);
-			T next = itOccurrence.next();
-			while(itOccurrence.hasNext() && next.equals(element)) {
-				next = itOccurrence.next();
-			}
+			while(iterateur.hasNext() && iterateur.next().equals(element));
 			
-			for(; itOccurrence.hasNext();) {
-				if(next.equals(element)) {
-					return false;
-				}
-				next = itOccurrence.next();
+			ListIterator<T> itOccurrence = liste.listIterator(iterateur.nextIndex());
+			
+			while(itOccurrence.hasNext()) {
+				if(itOccurrence.next().equals(element)) return false;
 			}
-			i++;
 		}
-		
 		return true;
 	}
 	

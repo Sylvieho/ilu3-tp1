@@ -6,6 +6,7 @@ import java.util.List;
 
 import cartes.Carte;
 import cartes.JeuDeCartes;
+import utils.GestionCartes;
 
 public class Jeu {
 	private Sabot sabot;
@@ -17,6 +18,9 @@ public class Jeu {
 		List<Carte> listeCartes = new ArrayList<>();
 		Collections.addAll(listeCartes, cartes);
 		
-		sabot = new Sabot((Carte[]) listeCartes.toArray());
+		GestionCartes gestion = new GestionCartes();
+		GestionCartes.melanger(listeCartes);
+		
+		sabot = new Sabot(listeCartes.toArray(new Carte[0]));
 	}
 }
