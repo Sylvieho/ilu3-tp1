@@ -75,14 +75,22 @@ public class JeuDeCartes {
 
 	public boolean checkCount() {
 		Carte[] cartes = donnerCartes();
-		int nbCartes = 0;
-		for (int i = 0; i < typesDeCartes.length; i++) {
-			for (int j = 0; j < typesDeCartes[i].getNbExemplaires(); j++) {
-				if (!cartes[nbCartes].equals(typesDeCartes[i].getCarte()))
+		
+		int nbRef = 0;
+		for(Configuration cartesRef : typesDeCartes) {
+			nbRef += cartesRef.getNbExemplaires();
+		}
+		if (cartes.length != nbRef) return false;
+		
+		int numCarte = 0;	
+		for (int indRef = 0; indRef < typesDeCartes.length; indRef++) {
+			for (int nbExemplaire = 0; nbExemplaire < typesDeCartes[indRef].getNbExemplaires(); nbExemplaire++) {
+				if (!cartes[numCarte].equals(typesDeCartes[indRef].getCarte()))
 					return false;
-				nbCartes++;
+				numCarte++;               
 			}
 		}
+		
 		return true;
 	}
 }
