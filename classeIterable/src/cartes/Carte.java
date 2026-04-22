@@ -7,4 +7,9 @@ public abstract class Carte {
 		if(objet instanceof Carte carte) return toString().equals(carte.toString());
 		return false;
 	}
+	
+	@Override
+	public int hashCode() {
+		return this.getClass().hashCode();
+	}
 }
