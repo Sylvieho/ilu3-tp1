@@ -47,4 +47,8 @@ public class Joueur {
 	public void deposer(Carte c) {
 		zoneDeJeu.deposer(c);
 	}
+	
+	public boolean estDepotAutorise(Carte carte) {
+		return zoneDeJeu.estDepotAutorise(carte);
+	}
 }
