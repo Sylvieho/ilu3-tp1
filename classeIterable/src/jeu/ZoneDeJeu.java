@@ -22,7 +22,7 @@ public class ZoneDeJeu {
 	
 	public int donnerLimitationVitesse() {
 		if(!pileDeLimites.isEmpty()) {
-			Limite pioche = pileDeLimites.remove(0);
+			Limite pioche = pileDeLimites.getLast();
 			if(!(pioche instanceof FinLimite)){
 				return 50;
 			}
@@ -51,25 +51,27 @@ public class ZoneDeJeu {
 	}
 	
 	public boolean peutAvancer() {
-		return !pileDeBatailles.isEmpty() && pileDeBatailles.getFirst().equals(Cartes.FEU_VERT);
+		return !pileDeBatailles.isEmpty() && pileDeBatailles.getLast().equals(Cartes.FEU_VERT);
 	}
 	
-	public boolean estDepotFeuVertAutorise() {
+	private boolean estDepotFeuVertAutorise() {
 		if (pileDeBatailles.isEmpty()) return true;
-		Bataille top = pileDeBatailles.getFirst();
+		Bataille top = pileDeBatailles.getLast();
 		return top.equals(Cartes.FEU_ROUGE) || (top instanceof Parade && !top.equals(Cartes.FEU_VERT));
 	}
 	
 	private boolean estDepotBorneAutorise(Borne borne) {
-		return peutAvancer() && (donnerLimitationVitesse() >= borne.getKm() 
-				|| donnerKmParcourus() + borne.getKm() <= 1000);
+		if (donnerLimitationVitesse() < borne.getKm() || donnerKmParcourus() + borne.getKm() > 1000) {
+			return false;
+		}
+		return pileDeBatailles.getLast().equals(Cartes.FEU_VERT);
 	}
 	
 	private boolean estDepotLimiteAutorise(Limite limite) {
 		if (limite instanceof DebutLimite) {
-			return pileDeLimites.isEmpty() || pileDeLimites.getFirst() instanceof FinLimite;
+			return pileDeLimites.isEmpty() || pileDeLimites.getLast() instanceof FinLimite;
 		} else if (limite instanceof FinLimite) {
-			return !pileDeLimites.isEmpty() && pileDeLimites.getFirst() instanceof DebutLimite;
+			return !pileDeLimites.isEmpty() && pileDeLimites.getLast() instanceof DebutLimite;
 		}
 		return false;
 	}
@@ -78,12 +80,12 @@ public class ZoneDeJeu {
 		if (bataille instanceof Attaque) {
 			return peutAvancer();
 		}
-		if(bataille instanceof Parade) {
-			if(bataille.getType() == Type.FEU) {
+		else if(bataille instanceof Parade parade) {
+			if(parade.getType() == Type.FEU) {
 				return estDepotFeuVertAutorise();
 			} else if(!pileDeBatailles.isEmpty()){
-				Bataille sommet = pileDeBatailles.getFirst();
-				return sommet instanceof Attaque && sommet.getType() == bataille.getType();
+				Bataille sommet = pileDeBatailles.getLast();
+				return sommet instanceof Attaque && sommet.getType().equals(parade.getType());
 			}
 		}
 		return false;
